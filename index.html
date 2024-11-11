@@ -25,6 +25,16 @@
     // FOR SECURITY REASONS DO NOT SET YOUR LICENSE KEY OR API USING QUERY PARAMETERS IN YOUR OWN APPLICATION
     CobrowseIO.license = "RDBBqCR4dpKmZw"; // change to your license key
     CobrowseIO.api = 'https://api.cobrowse.io';
+
+    (async () => {
+      const response = await fetch(`https://devikatest.uateltropy.com/messages/service/cobrowse/config/v1`);
+      const elementMaskingData = await response.json();
+
+      console.log("COBROWSE MASKING DATA ->", elementMaskingData);
+
+      CobrowseIO.redactedViews = elementMaskingData.enableElementMasking ? (elementMaskingData.maskedElements ?? []) : [];
+    })();
+    
     CobrowseIO.redactedViews = ['#support-code', '.child-iframe'];
     CobrowseIO.trustedOrigins = [
       'https://mohith-eltropy.github.io/Cobrowseio-child-test'
